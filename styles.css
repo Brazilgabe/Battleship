@@ -1,0 +1,14 @@
+#gameBoard {
+  border: 5px black solid;
+  width: 600px;
+  height: 600px;
+  border-collapse: collapse;
+}
+td{
+  border: 5px black solid;
+}
+td:hover{
+  background-color: green;
+  cursor: crosshair;
+
+}
