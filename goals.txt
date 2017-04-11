@@ -1,0 +1,14 @@
+goals:
+
+-- display board when somebody loses (after 25 torpedoes)
+-- 
+--
+--
+--
+--
+
+
+
+stretch:
+--
+--
