@@ -1,9 +1,10 @@
 goals:
 
--- display board when somebody loses (after 25 torpedoes)
+YES -- display board when somebody loses (after 25 torpedoes)
+YES -- torpedo counter on the side (asside)
+YES -- start game and board over after completion of the game
+-- automatic (random) creation of ships and their locations
 -- 
---
---
 --
 --
 

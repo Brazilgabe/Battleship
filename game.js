@@ -1,64 +1,75 @@
 var rows = 10;
 var cols = 10;
-//var squareSize = 60;s
 
 var container = document.querySelector("#gameBoard");
 
-  for (var i = 0; i<cols; i++) {
+for (var i = 0; i<cols; i++) {
   var squareCol = document.createElement("tr");
-    squareCol.id = "row" + i;
-    container.appendChild(squareCol);
+  squareCol.id = "row" + i;
+  container.appendChild(squareCol);
 
   for (var j = 0; j<rows; j++) {
-      var squareRow = document.createElement("td");
-      squareCol.appendChild(squareRow);
-      squareRow.id =  "row" + i  + " " + "col" + j;
-      //console.log(squareRow);
-
-      //"ind" + i+j;
-      // "row" + i  + " " + "col" + j + " ind"
-      //squareRow.onclick = "handleClick(" + i + j + ")";
+    var squareRow = document.createElement("td");
+    squareCol.appendChild(squareRow);
+    squareRow.id =  "row" + i  + " " + "col" + j;
+    //console.log(squareRow);      //"ind" + i+j; // "row" + i  + " " + "col" + j + " ind"
   }
 }
 
 var gameState = {
-  PLAYER_ONE: 'X',
+  SHIPSIZE: [2,3,3,4,5],
   hits: 5, //17
-  torpedoes: 25,
-  currentPlayer: 'X',
+  torpedoes: 5,
+  // currentPlayer: 'X',
+
   board: [
-          ["","","","","","","","","",""],
-          ["","","","ship","","","","","",""],
-          ["","","","","","","","ship","",""],
-          ["","","","","","","","","",""],
-          ["","","","ship","","","","","",""],
-          ["","","","","","","","","",""],
-          ["","","","","","","","","",""],
-          ["","","ship","","","","","ship","",""],
-          ["","","","","","","","","",""],
-          ["","","","","","","","","",""],
-        ]
+    ["","","","","","","","","",""],
+    ["","","","","","","","","",""],
+    ["","","","","","","","","",""],
+    ["","","","","","","","","",""],
+    ["","","","","","","","","",""],
+    ["","","","","","","","","",""],
+    ["","","","","","","","","",""],
+    ["","","","","","","","","",""],
+    ["","","","","","","","","",""],
+    ["","","","","","","","","",""],
+  ]
 }
+// function checkHorizontal(x,y,length){
+//   if (gameState.SHIPSIZE.length + 1 )
+// }
+
+function randomizeShips(){
+
+
+  var count = 0;
+  while(count < gameState.SHIPSIZE.length){
+    var xCoord = Math.floor(Math.random()*9);
+    var yCoord = Math.floor(Math.random()*9);
+
+    // if (checkHorizontal(xCoord, yCoord, length)){
+      if (gameState.board[xCoord][yCoord] != "ship"){
+      gameState.board[xCoord][yCoord] = "ship";
+      count++;
+  }
+  }
+  }
+  console.log(gameState.board);
+
 
 container.addEventListener('click',fire, false)
-// As a user when I click on a position, the position changes color so that I can tell that a position has been torpedoed.
-//
-// Hint: document.getElementById("myDiv").className = "hit" to set the class of an element called "myDiv"
-
 
 function fire(e){
   var row = e.target.id.substring(3,4);
   var col = e.target.id.substring(8,10); //9
-  //console.log(row);
-  //console.log(col);
   //console.log(gameState.board[row][col]);
   if(gameState.board[row][col] == ""){
-      //Uncaught TypeError: Cannot read property 'd' of undefined
+    //Uncaught TypeError: Cannot read property 'd' of undefined
     //at HTMLTableElement.fire (game.js:54)   (happens when you click and drag)
     console.log(gameState.board[row][col]);
-      e.target.style.background = 'black';
-      gameState.board[row][col] = "miss";
-      gameState.torpedoes--;
+    e.target.style.background = 'black';
+    gameState.board[row][col] = "miss";
+    gameState.torpedoes--;
   }
   if (gameState.board[row][col] == "ship") {
     e.target.style.background = 'red';
@@ -69,8 +80,11 @@ function fire(e){
     gameState.torpedoes--;
     //alert("you hit the ship!")
   }
+  document.getElementById("stats").innerHTML = "Torpedoes Remaining: " + gameState.torpedoes;
+
   console.log(gameState.torpedoes);
   ussMidway()
+
 }
 
 function ussMidway() {
@@ -79,14 +93,50 @@ function ussMidway() {
   }
   if (gameState.torpedoes == 0) {
     document.querySelector('#winMessage').innerText = "You suck, you used all 25 torpedoes and still couldn't sink 5 ships";
-    showBoard()
+     showBoard()
   }
 }
 
-
 function showBoard() {
-  console.log("show board");
+  if (gameState.torpedoes == 0 ){
+    gameState.board.forEach(function(row, x){
+      row.forEach(function(cell, y){
+        //console.log(cell, y);
+        if (cell == "ship"){
+          console.log(gameState.board[x][y]);
+          document.getElementById("row" + x + " col"+ y).style.background = 'red';
+        } else if (cell == "miss"){
+          console.log(gameState.board[x][y]);
+          document.getElementById("row" + x + " col"+ y).style.background = 'blue';
+        }
+      })
+    })
 }
+}
+
+function resetBoard(){
+  gameState.torpedoes = 5;
+  //eventually run function that selects new ship locations
+  gameState.board = [
+  ["","","","","","","","","",""],
+  ["","","","","","","","","",""],
+  ["","","","","","","","","",""],
+  ["","","","","","","","","",""],
+  ["","","","","","","","","",""],
+  ["","","","","","","","","",""],
+  ["","","","","","","","","",""],
+  ["","","","","","","","","",""],
+  ["","","","","","","","","",""],
+  ["","","","","","","","","",""],
+];
+
+    gameState.board.forEach(function(row, x){
+      row.forEach(function(cell, y){
+        //console.log(cell, y);
+          document.getElementById("row" + x + " col"+ y).style.background = 'white';
+        })
+      })
+    }
 
 
 

@@ -6,18 +6,17 @@
 
     <title>Gabe &amp; Nick Battleship</title>
   </head>
-  <body>
+  <body onload="randomizeShips()">
     <h1>BattleShip!</h1>
-    <table id="gameBoard" > </table>
-    <!-- onclick="handleClick()" -->
-    <!-- <div class="stats"> </div>
-    <div id="gameBoard">
-      <div class="cells"> </div>
-    </div> -->
+    <h2>Command Center :</h2>
+    <div id="stats"></div>
+    <table id="gameBoard" ></table>
 
-    <h2 id="winMessage"></h2>
+    <h2 id="winMessage">Message Center:</h2>
 
-    <button type="button" name="button"> Play! </button>
+    <button type="button" name="button" onclick="resetBoard()"> Play again! </button>
+
+
     <script type="text/javascript" src="game.js"></script>
   </body>
 </html>
