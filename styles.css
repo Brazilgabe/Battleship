@@ -1,8 +1,17 @@
+html, body {
+  width: 100%
+}
+body{
+  text-align: center;
+}
 #gameBoard {
   border: 5px black solid;
   width: 600px;
   height: 600px;
   border-collapse: collapse;
+
+
+  /*margin-right: 20%;*/
 }
 td{
   border: 5px black solid;
@@ -11,4 +20,21 @@ td:hover{
   background-color: green;
   cursor: crosshair;
 
+}
+h1 {
+  text-align: center;
+}
+h2 {
+  text-align: center;
+}
+button{
+  text-align: center;
+}
+div .board-container #gameBoard{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table {
+  margin: 0 auto;
 }
