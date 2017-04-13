@@ -36,45 +36,26 @@ var gameState = {
 }
 
 
-function checkHorizontal(xCoord, shipsize, y, startY, yCoord, x, startX, direction) {
+function checkHorizontal(xCoord, shipsize, y, start) {
 
     var arr = [];
-
-    if (direction === 'h') {
-        for (startY; startY < (y + shipsize); startY++) {
-            if (typeof gameState.board[xCoord][startY] != "number") {
-                console.log("empty" + startY);
-                arr.push("empty");
-            } else {
-                console.log("not empty" + startY);
-                arr.push("not empty");
-            }
-        }
-        console.log(arr);
-        if (arr.includes("not empty")) {
-            return true;
+    for (start; start < (y + shipsize); start++) {
+        if (typeof gameState.board[xCoord][start] != "number") {
+            console.log("empty" + start);
+            arr.push("empty");
         } else {
-            return false;
-        }
-    } else { // direction is "v"
-        for (startX; startX < (x + shipsize); startX++) {
-            if (typeof gameState.board[startX][yCoord] != "number") {
-                console.log("empty" + startX);
-                arr.push("empty");
-            } else {
-                console.log("not empty" + startX);
-                arr.push("not empty");
-            }
-        }
-        console.log(arr);
-        if (arr.includes("not empty")) {
-            return true;
-        } else {
-            return false;
+            console.log("not empty" + start);
+            arr.push("not empty");
         }
     }
-
+    console.log(arr);
+    if (arr.includes("not empty")) {
+        return true;
+    } else {
+        return false;
+    }
 }
+
 
 function randomizeShips() {
 
@@ -83,49 +64,19 @@ function randomizeShips() {
             var xCoord = Math.floor(Math.random() * 9);
             var yCoord = Math.floor(Math.random() * 9);
 
-            var directionNum = Math.floor(Math.random() * 2); // 0 or 1
-            var direction = "";
-
-            if (directionNum === 0) {
-                direction = "h";
-            } else {
-                direction = "v";
-            }
-
             var y = yCoord;
-            var startY = yCoord;
+            var start = yCoord;
 
-            if (startY + shipsize >= 10) {
-                startY = 9 - shipsize;
-                var y = startY;
+            if (start + shipsize >= 10) {
+                start = 9 - shipsize;
+                var y = start;
             };
-
-            var x = xCoord;
-            var startX = xCoord;
-
-            if (startX + shipsize >= 10) {
-                startX = 9 - shipsize;
-                var x = startX;
-            };
-
         }
-        while (checkHorizontal(xCoord, shipsize, y, startY, yCoord, x, startX, direction))
+        while (checkHorizontal(xCoord, shipsize, y, start))
 
 
-
-
-
-
-
-        if (direction === "h") {
-            for (startY; startY < (y + shipsize); startY++) {
-                gameState.board[xCoord][startY] = shipsize;
-            }
-        } else {
-            // for loop for opposite
-            for (startX; startX < (x + shipsize); startX++) {
-                gameState.board[startX][yCoord] = shipsize;
-            }
+        for (start; start < (y + shipsize); start++) {
+            gameState.board[xCoord][start] = shipsize;
         }
 
     })

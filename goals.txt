@@ -1,24 +1,44 @@
-goals:
-
-YES -- display board when somebody loses (after 25 torpedoes)
-YES -- torpedo counter on the side (asside)
-YES -- start game and board over after completion of the game
--- automatic (random) creation of ships and their locations
---
---
---
+// goals:
+//
+// YES -- display board when somebody loses (after 25 torpedoes)
+// YES -- torpedo counter on the side (asside)
+// YES -- start game and board over after completion of the game
+// -- automatic (random) creation of ships and their locations
+// --
+// --
+// --
 
 
 
 stretch:
---
-****************************************
-****************************************
-updated code as of 11:00am thursday...
-****************************************
-****************************************
+    --
+    **
+    **
+    **
+    **
+    **
+    ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+    **
+    **
+    **
+    **
+    **
+    ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+    updated code as of 4: 21 am thursday...
+    **
+    **
+    **
+    **
+    **
+    ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+    **
+    **
+    **
+    **
+    **
+    ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
 
-var rows = 10;
+    var rows = 10;
 var cols = 10;
 
 var container = document.querySelector("#gameBoard");
@@ -35,10 +55,11 @@ for (var i = 0; i < cols; i++) {
     }
 }
 
+
 var gameState = {
     SHIPSIZE: [5, 4, 3, 3, 2],
     hits: 5, //17
-    torpedoes: 1,
+    torpedoes: 2,
 
     board: [
         ["", "", "", "", "", "", "", "", "", ""],
@@ -53,6 +74,7 @@ var gameState = {
         ["", "", "", "", "", "", "", "", "", ""],
     ]
 }
+
 
 function checkHorizontal(xCoord, shipsize, y, start) {
 
@@ -73,7 +95,6 @@ function checkHorizontal(xCoord, shipsize, y, start) {
         return false;
     }
 }
-
 
 
 function randomizeShips() {
@@ -106,7 +127,7 @@ container.addEventListener('click', fire, false)
 
 function fire(e) {
     var row = e.target.id.substring(3, 4);
-    var col = e.target.id.substring(8, 10); //9
+    var col = e.target.id.substring(8, 10);
     if (gameState.board[row][col] == "") {
         console.log(gameState.board[row][col]);
         e.target.style.background = 'black';
@@ -114,13 +135,13 @@ function fire(e) {
         gameState.torpedoes--;
     }
     if (typeof gameState.board[row][col] == "number") {
-        /
         e.target.style.background = 'red';
         gameState.board[row][col] = "hit";
         gameState.hits--;
         console.log(gameState.hits);
         console.log(gameState.board);
         gameState.torpedoes--;
+
     }
     document.getElementById("stats").innerHTML = "Torpedoes Remaining: " + gameState.torpedoes;
 
@@ -144,10 +165,10 @@ function showBoard() {
         gameState.board.forEach(function(row, x) {
             row.forEach(function(cell, y) {
                 if (typeof cell == "number") {
-                    console.log(gameState.board[x][y]);
+                    //console.log(gameState.board[x][y]);
                     document.getElementById("row" + x + " col" + y).style.background = 'red';
                 } else if (cell == "miss") {
-                    console.log(gameState.board[x][y]);
+                    //  console.log(gameState.board[x][y]);
                     document.getElementById("row" + x + " col" + y).style.background = 'blue';
                 }
             })
@@ -156,7 +177,7 @@ function showBoard() {
 }
 
 function resetBoard() {
-    gameState.torpedoes = 5;
+    gameState.torpedoes = 25;
     gameState.board = [
         ["", "", "", "", "", "", "", "", "", ""],
         ["", "", "", "", "", "", "", "", "", ""],
@@ -173,8 +194,14 @@ function resetBoard() {
     gameState.board.forEach(function(row, x) {
         row.forEach(function(cell, y) {
             document.getElementById("row" + x + " col" + y).style.background = 'white';
+            if (gameState.torpedoes == 0) {
+                gameState.torpedoes = 25;
+            }
         })
+
     })
+    document.querySelector('#winMessage').innerText = "Let's see if you can sink all the ships!";
+    randomizeShips()
 }
 
 

@@ -4,6 +4,8 @@ html, body {
 
 body {
     text-align: center;
+    background-image: url(http://www.esa.int/var/esa/storage/images/esa_multimedia/images/2015/06/great_barrier_reef_australia/15428257-1-eng-GB/Great_Barrier_Reef_Australia.jpg);
+    background-size: 100% 96%;
 }
 
 #gameBoard {
@@ -11,8 +13,8 @@ body {
     width: 600px;
     height: 600px;
     border-collapse: collapse;
-    background-image: url(https://media.giphy.com/media/1wftCFTA7Kaxq/giphy.gif);
-    background-size: 600px 600px;
+    background-image: url(https://cdn-images-1.medium.com/max/2000/1*N89j1nriQE3K-iZqxsxL1A.gif);
+    background-size: 1200px;
 }
 
 td {
@@ -24,8 +26,11 @@ td:hover {
     cursor: crosshair;
 }
 
-h1 {
-    text-align: center;
+.topBanner {
+    width: 600px;
+    height: 200px;
+    padding: 0px;
+    margin: 5px;
 }
 
 h2 {
@@ -44,3 +49,50 @@ div .board-container #gameBoard {
 table {
     margin: 0 auto;
 }
+
+
+/*bootstrap footer content*/
+
+@import url("http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
+#footer {
+    border-top: 5px solid #CDB380;
+    background: #033649 none repeat scroll 0% 0%;
+    padding-top: 30px;
+    margin-top: 60px;
+    clear: both;
+    color: #AAA;
+    display: block;
+}
+
+#footer .widgettitle {
+    margin: 0px;
+    padding: 0px 0px 15px;
+    border-bottom: medium none;
+}
+
+#footer h4 {
+    color: #FFF;
+}
+
+#footer ul {
+    list-style: outside none none;
+}
+
+#footer li {
+    padding: 7px 0px;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.2);
+    margin: 0px;
+}
+
+#footer li a {
+    color: #DDD;
+}
+
+#sub-floor {
+    color: #AAA;
+    background: #031634 none repeat scroll 0% 0%;
+    padding: 10px 0px;
+}
+
+
+/*end of bootstrap footer content*/
