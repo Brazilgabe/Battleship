@@ -1,3 +1,9 @@
+// this is the working game copy
+// we need to fix the button so that it can be restarted on click..
+
+
+
+
 var rows = 10;
 var cols = 10;
 

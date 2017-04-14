@@ -202,7 +202,7 @@ function resetBoard() {
 
     gameState.board.forEach(function(row, x) {
         row.forEach(function(cell, y) {
-            document.getElementById("row" + x + " col" + y).style.background = 'white';
+            document.getElementById("row" + x + " col" + y).style.backgroundImage = url('https://cdn-images-1.medium.com/max/2000/1*N89j1nriQE3K-iZqxsxL1A.gif')
             if (gameState.torpedoes == 0) {
                 gameState.torpedoes = 25;
             }
