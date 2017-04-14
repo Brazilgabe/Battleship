@@ -17,26 +17,30 @@ stretch:
     **
     **
     **
-    ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+    **
+    ** ** ** ** ** ** ** ** ** ** ** ** ** **
     **
     **
     **
     **
     **
-    ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
-    updated code as of 4: 21 am thursday...
+    **
+    ** ** ** ** ** ** ** ** ** ** ** ** ** **
+    updated code as of 10: 31 am friday...
     **
     **
     **
     **
     **
-    ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+    **
+    ** ** ** ** ** ** ** ** ** ** ** ** ** **
     **
     **
     **
     **
     **
-    ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+    **
+    ** ** ** ** ** ** ** ** ** ** ** ** ** **
 
     var rows = 10;
 var cols = 10;
@@ -76,26 +80,45 @@ var gameState = {
 }
 
 
-function checkHorizontal(xCoord, shipsize, y, start) {
+function checkHorizontal(xCoord, shipsize, y, startY, yCoord, x, startX, direction) {
 
     var arr = [];
-    for (start; start < (y + shipsize); start++) {
-        if (typeof gameState.board[xCoord][start] != "number") {
-            console.log("empty" + start);
-            arr.push("empty");
+
+    if (direction === 'h') {
+        for (startY; startY < (y + shipsize); startY++) {
+            if (typeof gameState.board[xCoord][startY] != "number") {
+                console.log("empty" + startY);
+                arr.push("empty");
+            } else {
+                console.log("not empty" + startY);
+                arr.push("not empty");
+            }
+        }
+        console.log(arr);
+        if (arr.includes("not empty")) {
+            return true;
         } else {
-            console.log("not empty" + start);
-            arr.push("not empty");
+            return false;
+        }
+    } else { // direction is "v"
+        for (startX; startX < (x + shipsize); startX++) {
+            if (typeof gameState.board[startX][yCoord] != "number") {
+                console.log("empty" + startX);
+                arr.push("empty");
+            } else {
+                console.log("not empty" + startX);
+                arr.push("not empty");
+            }
+        }
+        console.log(arr);
+        if (arr.includes("not empty")) {
+            return true;
+        } else {
+            return false;
         }
     }
-    console.log(arr);
-    if (arr.includes("not empty")) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
+}
 
 function randomizeShips() {
 
@@ -104,19 +127,49 @@ function randomizeShips() {
             var xCoord = Math.floor(Math.random() * 9);
             var yCoord = Math.floor(Math.random() * 9);
 
+            var directionNum = Math.floor(Math.random() * 2); // 0 or 1
+            var direction = "";
+
+            if (directionNum === 0) {
+                direction = "h";
+            } else {
+                direction = "v";
+            }
+
             var y = yCoord;
-            var start = yCoord;
+            var startY = yCoord;
 
-            if (start + shipsize >= 10) {
-                start = 9 - shipsize;
-                var y = start;
+            if (startY + shipsize >= 10) {
+                startY = 10 - shipsize;
+                var y = startY;
             };
+
+            var x = xCoord;
+            var startX = xCoord;
+
+            if (startX + shipsize >= 10) {
+                startX = 10 - shipsize;
+                var x = startX;
+            };
+
         }
-        while (checkHorizontal(xCoord, shipsize, y, start))
+        while (checkHorizontal(xCoord, shipsize, y, startY, yCoord, x, startX, direction))
 
 
-        for (start; start < (y + shipsize); start++) {
-            gameState.board[xCoord][start] = shipsize;
+
+
+
+
+
+        if (direction === "h") {
+            for (startY; startY < (y + shipsize); startY++) {
+                gameState.board[xCoord][startY] = shipsize;
+            }
+        } else {
+            // for loop for opposite
+            for (startX; startX < (x + shipsize); startX++) {
+                gameState.board[startX][yCoord] = shipsize;
+            }
         }
 
     })
@@ -177,7 +230,7 @@ function showBoard() {
 }
 
 function resetBoard() {
-    gameState.torpedoes = 25;
+    gameState.torpedoes = 2;
     gameState.board = [
         ["", "", "", "", "", "", "", "", "", ""],
         ["", "", "", "", "", "", "", "", "", ""],
@@ -193,13 +246,16 @@ function resetBoard() {
 
     gameState.board.forEach(function(row, x) {
         row.forEach(function(cell, y) {
-            document.getElementById("row" + x + " col" + y).style.background = 'white';
+            document.getElementById("row" + x + " col" + y).style.background = "rgba(255, 255, 255, 0)";
+            document.getElementById("gameBoard").style.background = "url('sea.gif')";
+
+
             if (gameState.torpedoes == 0) {
-                gameState.torpedoes = 25;
+                gameState.torpedoes = 2;
             }
         })
-
     })
+
     document.querySelector('#winMessage').innerText = "Let's see if you can sink all the ships!";
     randomizeShips()
 }

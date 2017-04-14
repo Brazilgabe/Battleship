@@ -17,6 +17,10 @@ body {
     background-size: 1200px;
 }
 
+h2 {
+    color: rgb(147, 161, 161);
+}
+
 td {
     border: 5px black solid;
 }
@@ -71,7 +75,7 @@ table {
 }
 
 #footer h4 {
-    color: #FFF;
+    color: rgba(255, 255, 255, 1);
 }
 
 #footer ul {
@@ -96,3 +100,5 @@ table {
 
 
 /*end of bootstrap footer content*/
+
+nt*/

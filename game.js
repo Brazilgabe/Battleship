@@ -96,7 +96,7 @@ function randomizeShips() {
             var startY = yCoord;
 
             if (startY + shipsize >= 10) {
-                startY = 9 - shipsize;
+                startY = 10 - shipsize;
                 var y = startY;
             };
 
@@ -104,7 +104,7 @@ function randomizeShips() {
             var startX = xCoord;
 
             if (startX + shipsize >= 10) {
-                startX = 9 - shipsize;
+                startX = 10 - shipsize;
                 var x = startX;
             };
 
@@ -186,7 +186,7 @@ function showBoard() {
 }
 
 function resetBoard() {
-    gameState.torpedoes = 25;
+    gameState.torpedoes = 2;
     gameState.board = [
         ["", "", "", "", "", "", "", "", "", ""],
         ["", "", "", "", "", "", "", "", "", ""],
@@ -202,13 +202,16 @@ function resetBoard() {
 
     gameState.board.forEach(function(row, x) {
         row.forEach(function(cell, y) {
-            document.getElementById("row" + x + " col" + y).style.backgroundImage = url('https://cdn-images-1.medium.com/max/2000/1*N89j1nriQE3K-iZqxsxL1A.gif')
+            document.getElementById("row" + x + " col" + y).style.background = "rgba(255, 255, 255, 0)";
+            document.getElementById("gameBoard").style.background = "url('sea.gif')";
+
+
             if (gameState.torpedoes == 0) {
-                gameState.torpedoes = 25;
+                gameState.torpedoes = 2;
             }
         })
-
     })
+
     document.querySelector('#winMessage').innerText = "Let's see if you can sink all the ships!";
     randomizeShips()
 }
