@@ -18,8 +18,14 @@ for (var i = 0; i < cols; i++) {
 
 var gameState = {
     SHIPSIZE: [5, 4, 3, 3, 2],
-    hits: 5, //17
-    torpedoes: 2,
+    hits: 17, //17
+    torpedoes: 25,
+
+    destroyer: 2,
+    submarine: 3,
+    cruiser: 3,
+    battleship: 4,
+    carrier: 5,
 
     board: [
         ["", "", "", "", "", "", "", "", "", ""],
@@ -138,26 +144,53 @@ function fire(e) {
     var row = e.target.id.substring(3, 4);
     var col = e.target.id.substring(8, 10);
     if (gameState.board[row][col] == "") {
-        console.log(gameState.board[row][col]);
         e.target.style.background = 'black';
         gameState.board[row][col] = "miss";
         gameState.torpedoes--;
     }
     if (typeof gameState.board[row][col] == "number") {
+
+
         e.target.style.background = 'red';
         gameState.board[row][col] = "hit";
         gameState.hits--;
-        console.log(gameState.hits);
-        console.log(gameState.board);
         gameState.torpedoes--;
 
     }
+
+    // if (gameState.board[row][col] === 'hit') { // hits two ship
+    //     gameState.destroyer--;
+    //     console.log("shot a two");
+    //
+    //     if (gameState.destroyer === 0) {
+    //         document.getElementById("one").className = "shipButton"
+    //         console.log("changing color");
+    //     }
+    // }
+    // if (gameState.board[row][col] === 'hit') { // hits two ship
+    //     gameState.battleship--;
+    //     console.log("shot a four");
+    //
+    //     if (gameState.battleship === 0) {
+    //         document.getElementById("four").className = "shipButton"
+    //         console.log("changing color");
+    //     }
+    // }
+
+
     document.getElementById("stats").innerHTML = "Torpedoes Remaining: " + gameState.torpedoes;
 
-    console.log(gameState.torpedoes);
     ussMidway()
 
 }
+
+//
+// function turnRed() {
+//     if (gameState.destroyer == 0) {
+//         document.getElementById("one").className = "shipButton"
+//         //document.getElementById("one").add('shipButton')
+//     }
+// }
 
 function ussMidway() {
     if (gameState.hits == 0) {
@@ -186,7 +219,7 @@ function showBoard() {
 }
 
 function resetBoard() {
-    gameState.torpedoes = 2;
+    gameState.torpedoes = 25;
     gameState.board = [
         ["", "", "", "", "", "", "", "", "", ""],
         ["", "", "", "", "", "", "", "", "", ""],
@@ -207,7 +240,7 @@ function resetBoard() {
 
 
             if (gameState.torpedoes == 0) {
-                gameState.torpedoes = 2;
+                gameState.torpedoes = 25;
             }
         })
     })
